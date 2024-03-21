@@ -1,0 +1,13 @@
+checks:
+    javascript: true
+build:
+  nodes:
+    analysis:
+            tests:
+                override:
+                    - js-scrutinizer-run
+    node-with-functional-tests:
+      environment:
+        google_chrome:
+          use_latest: true
+        selenium: true

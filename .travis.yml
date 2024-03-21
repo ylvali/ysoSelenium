@@ -1,0 +1,37 @@
+language: node_js
+
+node_js:
+    - "12"
+    - "10"
+
+sudo: required
+
+git:
+    submodules: false
+
+dist: xenial
+services:
+  - xvfb
+
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
+before_script:
+    - echo "$PATH"
+    - wget http://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
+    #- unzip chromedriver_linux64.zip -d /usr/bin/
+    - sudo mkdir /home/travis/chrome
+    #- unzip chromedriver_linux64.zip -d /usr/local/bin/
+    #- sudo unzip chromedriver_linux64.zip -d /home/travis/virtualenv/
+    - sudo unzip chromedriver_linux64.zip -d /home/travis/chrome/
+    #- export CHROME_BIN=chromium-browser
+    - export PATH=$PATH:"/home/travis/chrome/"
+    - "export DISPLAY=:99.0"
+    - npm install
+
+script:
+    - npm test
